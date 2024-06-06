@@ -26,6 +26,6 @@ def mask_account_card(data: str) -> str:
             """Если номер карты не найден, возвращаем строку без изменений"""
             return data
 
-
+# пример ввода
 # print(mask_account_card("Visa Platinum 8990922113665229"))
 # print(mask_account_card("Счет 64686473678894779589"))
