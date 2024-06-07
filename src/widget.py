@@ -1,4 +1,5 @@
 from masks import get_mask_card_number, get_mask_account
+from datetime import datetime
 
 
 def mask_account_card(data: str) -> str:
@@ -26,6 +27,13 @@ def mask_account_card(data: str) -> str:
             """Если номер карты не найден, возвращаем строку без изменений"""
             return data
 
+
 # пример ввода
 # print(mask_account_card("Visa Platinum 8990922113665229"))
 # print(mask_account_card("Счет 64686473678894779589"))
+def get_data(date_str):
+    """Разбираем строку в объект datetime"""
+    dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
+    """Преобразуем дату в нужный формат"""
+    formatted_date = dt.strftime("%d.%m.%Y")
+    return formatted_date
