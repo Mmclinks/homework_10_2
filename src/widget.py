@@ -1,22 +1,23 @@
+
+
 from masks import get_mask_card_number, get_mask_account
 from datetime import datetime
 
 
 def mask_account_card(data: str) -> str:
-    """Определим тип маскировки"""
+    """Определяет тип маскировки и возвращает замаскированные данные."""
     if data.lower().startswith('счет'):
-        """Обрабатываем счет"""
+        # Обрабатываем счет
         parts = data.split(' ', 1)
         if len(parts) > 1:
             account_number = parts[1]
             masked_number = get_mask_account(account_number)
             return f"{parts[0]} {masked_number}"
         else:
-            """Если номер счета не найден, возвращаем строку без изменений"""
+            # Если номер счета не найден, возвращаем строку без изменений
             return data
-
     else:
-        """Обрабатываем номер карты"""
+        # Обрабатываем номер карты
         parts = data.rsplit(' ', 1)
         if len(parts) > 1:
             card_type = parts[0]
@@ -24,16 +25,20 @@ def mask_account_card(data: str) -> str:
             masked_number = get_mask_card_number(card_number)
             return f"{card_type} {masked_number}"
         else:
-            """Если номер карты не найден, возвращаем строку без изменений"""
+            # Если номер карты не найден, возвращаем строку без изменений
             return data
 
 
-# пример ввода
+# Пример ввода
 # print(mask_account_card("Visa Platinum 8990922113665229"))
 # print(mask_account_card("Счет 64686473678894779589"))
-def get_data(date_str):
-    """Разбираем строку в объект datetime"""
+
+
+def get_date(date_str: str) -> str:
+    """Разбирает строку в объект datetime и преобразует дату в нужный формат."""
     dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
-    """Преобразуем дату в нужный формат"""
     formatted_date = dt.strftime("%d.%m.%Y")
     return formatted_date
+# в условии домашки: Функция преобразования даты называется
+# get_data.
+# Измените условие домашки если оно противоречит нормам
