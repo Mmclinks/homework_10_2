@@ -1,5 +1,5 @@
-from typing import List
 from datetime import datetime
+from typing import List, Dict
 
 
 def filter_by_state(data: List[dict], state: str = 'EXECUTED') -> List[dict]:
@@ -9,9 +9,10 @@ def filter_by_state(data: List[dict], state: str = 'EXECUTED') -> List[dict]:
     return [item for item in data if item.get('state') == state]
 
 
-def sort_by_date(data: List[dict], ascending: bool = False) -> List[dict]:
+def sort_by_date(data: List[Dict], ascending: bool = True) -> List[Dict]:
     """
     Сортирует список словарей по ключу 'date'.
     """
-    sorted_data = sorted(data, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d'), reverse=not ascending)
+    date_format = '%Y-%m-%dT%H:%M:%S.%f'
+    sorted_data = sorted(data, key=lambda item: datetime.strptime(item['date'], date_format), reverse=not ascending)
     return sorted_data
