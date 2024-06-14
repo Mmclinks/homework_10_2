@@ -1,5 +1,3 @@
-
-
 from masks import get_mask_card_number, get_mask_account
 from datetime import datetime
 
@@ -29,16 +27,8 @@ def mask_account_card(data: str) -> str:
             return data
 
 
-# Пример ввода
-# print(mask_account_card("Visa Platinum 8990922113665229"))
-# print(mask_account_card("Счет 64686473678894779589"))
-
-
 def get_date(date_str: str) -> str:
     """Разбирает строку в объект datetime и преобразует дату в нужный формат."""
     dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")
     formatted_date = dt.strftime("%d.%m.%Y")
     return formatted_date
-# в условии домашки: Функция преобразования даты называется
-# get_data.
-# Измените условие домашки если оно противоречит нормам
