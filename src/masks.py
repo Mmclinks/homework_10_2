@@ -7,15 +7,12 @@ def get_mask_card_number(card_number):
         raise ValueError("Номер карты слишком короткий.")
 
     """Формируем маскированную часть"""
-    mask_part = card_number[6:-4].replace(card_number[6:-4], '*' * len(card_number[6:-4]))
+    mask_part = '*' * len(card_numbers[6:-4])
 
     """Формируем итоговый маскированный номер"""
-    mask_number = card_number[:6] + mask_part + card_number[-4:]
+    mask_number = card_numbers[:6] + mask_part + card_numbers[-4:]
 
-    """Разбиваем номер на блоки по 4 цифры и соединяем пробелами"""
-    formatted_number = ' '.join([mask_number[i:i + 4] for i in range(0, len(mask_number), 4)])
-
-    return formatted_number
+    return mask_number
 
 
 def get_mask_account(account_num):

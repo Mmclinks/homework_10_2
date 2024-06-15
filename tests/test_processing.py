@@ -1,34 +1,55 @@
 import pytest
+
 from src.processing import filter_by_state, sort_by_date
 
 
+# Фикстуры для формирования входных данных для тестов
 @pytest.fixture
 def sample_data():
     return [
-        {"id": 1, "state": "EXECUTED", "date": "2024-06-12T10:30:00.000"},
-        {"id": 2, "state": "PENDING", "date": "2024-06-11T09:25:30.000"},
-        {"id": 3, "state": "EXECUTED", "date": "2024-06-13T12:45:15.000"},
-        {"id": 4, "state": "CANCELLED", "date": "2024-06-10T08:20:00.000"},
+        {'state': 'EXECUTED', 'date': '2024-06-14T10:15:30.000000'},
+        {'state': 'CANCELLED', 'date': '2023-05-13T09:14:29.000000'},
+        {'state': 'EXECUTED', 'date': '2022-04-12T08:13:28.000000'},
+        {'state': 'PENDING', 'date': '2021-03-11T07:12:27.000000'},
     ]
 
 
-@pytest.mark.parametrize("state, expected_ids", [
-    ("EXECUTED", [1, 3]),
-    ("PENDING", [2]),
-    ("CANCELLED", [4]),
-    ("NON_EXISTENT", [])
+# Тесты для функции filter_by_state
+@pytest.mark.parametrize("state,expected", [
+    ('EXECUTED', [
+        {'state': 'EXECUTED', 'date': '2024-06-14T10:15:30.000000'},
+        {'state': 'EXECUTED', 'date': '2022-04-12T08:13:28.000000'},
+    ]),
+    ('CANCELLED', [
+        {'state': 'CANCELLED', 'date': '2023-05-13T09:14:29.000000'},
+    ]),
+    ('PENDING', [
+        {'state': 'PENDING', 'date': '2021-03-11T07:12:27.000000'},
+    ]),
+    ('UNKNOWN', []),
 ])
-def test_filter_by_state(sample_data, state, expected_ids):
-    filtered_data = filter_by_state(sample_data, state)
-    filtered_ids = [item['id'] for item in filtered_data]
-    assert filtered_ids == expected_ids
+def test_filter_by_state(sample_data, state, expected):
+    assert filter_by_state(sample_data, state) == expected
 
 
-@pytest.mark.parametrize("ascending, expected_order", [
-    (True, [4, 2, 1, 3]),
-    (False, [3, 1, 2, 4])
-])
-def test_sort_by_date(sample_data, ascending, expected_order):
-    sorted_data = sort_by_date(sample_data, ascending=ascending)
-    sorted_ids = [item['id'] for item in sorted_data]
-    assert sorted_ids == expected_order
+# Тесты для функции sort_by_date
+def test_sort_by_date_ascending(sample_data):
+    sorted_data = sort_by_date(sample_data, ascending=True)
+    expected = [
+        {'state': 'PENDING', 'date': '2021-03-11T07:12:27.000000'},
+        {'state': 'EXECUTED', 'date': '2022-04-12T08:13:28.000000'},
+        {'state': 'CANCELLED', 'date': '2023-05-13T09:14:29.000000'},
+        {'state': 'EXECUTED', 'date': '2024-06-14T10:15:30.000000'},
+    ]
+    assert sorted_data == expected
+
+
+def test_sort_by_date_descending(sample_data):
+    sorted_data = sort_by_date(sample_data, ascending=False)
+    expected = [
+        {'state': 'EXECUTED', 'date': '2024-06-14T10:15:30.000000'},
+        {'state': 'CANCELLED', 'date': '2023-05-13T09:14:29.000000'},
+        {'state': 'EXECUTED', 'date': '2022-04-12T08:13:28.000000'},
+        {'state': 'PENDING', 'date': '2021-03-11T07:12:27.000000'},
+    ]
+    assert sorted_data == expected
