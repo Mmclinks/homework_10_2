@@ -34,6 +34,7 @@ print("По возрастанию:", sorted_data_ascending)
 sorted_data_descending = sort_by_date(data, ascending=False)
 print("По убыванию:", sorted_data_descending)
 
+
 ## Лицензия:
 
 Этот проект лицензирован по [лицензии MIT].
