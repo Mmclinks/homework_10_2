@@ -34,6 +34,13 @@ print("По возрастанию:", sorted_data_ascending)
 sorted_data_descending = sort_by_date(data, ascending=False)
 print("По убыванию:", sorted_data_descending)
 
+Тестирование прошло на 96%:
+
+src/__init__.py	0	0	0	100%
+src/masks.py	17	0	0	100%
+src/processing.py	8	0	0	100%
+src/widget.py	21	2	0	90%
+Total	46	2	0	96%
 
 ## Лицензия:
 
