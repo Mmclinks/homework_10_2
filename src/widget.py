@@ -1,5 +1,7 @@
-from src.masks import get_mask_card_number, get_mask_account
 from datetime import datetime
+
+from src.masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(data: str) -> str:
     if data.lower().startswith('счет'):
@@ -25,6 +27,7 @@ def mask_account_card(data: str) -> str:
                 return data
         else:
             return data
+
 
 def get_date(date_str: str) -> str:
     dt = datetime.strptime(date_str, "%Y-%m-%dT%H:%M:%S.%f")

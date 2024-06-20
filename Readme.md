@@ -8,11 +8,13 @@
 ├── src
 │ ├── masks.py
 │ ├── processing.py
-│ └── widget.py
-└── tests
+│ ├── widget.py
+│ 
+├── tests
 ├── test_masks.py
 ├── test_processing.py
-└── test_widget.py
+├── test_widget.py
+
 
 
 ### Модули
@@ -20,7 +22,7 @@
 - **masks.py**
 - **processing.py**
 - **widget.py**
-- 
+
 ## Установка
 
 1. Клонируйте репозиторий:

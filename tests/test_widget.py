@@ -1,5 +1,7 @@
 import pytest
-from src.widget import mask_account_card, get_date
+
+from src.widget import get_date, mask_account_card
+
 
 @pytest.mark.parametrize("data,expected", [
     ("счет 12345678", "счет ****5678"),
