@@ -4,16 +4,16 @@
 
 ## Структура проекта
 
-.
 ├── src
 │ ├── masks.py
 │ ├── processing.py
 │ ├── widget.py
-│ 
+│ └── generators.py
 ├── tests
 ├── test_masks.py
 ├── test_processing.py
 ├── test_widget.py
+└── test_generators.py
 
 
 
@@ -22,7 +22,8 @@
 - **masks.py**
 - **processing.py**
 - **widget.py**
-
+- **generators.py**
+- 
 ## Установка
 
 1. Клонируйте репозиторий:
@@ -40,16 +41,13 @@ pytest
 
 Покрытие кода:
 
-src/__init__.py                0      0   100%
-src/masks.py                  17      0   100%
-src/processing.py              8      0   100%
-src/widget.py                 24      2    92%
-tests/__init__.py              0      0   100%
-tests/test_masks.py           17      2    88%
-tests/test_processing.py      16      0   100%
-tests/test_widget.py           8      0   100%
-----------------------------------------------
-TOTAL                         90      4    96%
+File	            statements	missing	 excluded  coverage
+src/__init__.py	    0	        0	     0	       100%
+src/generators.py	11	        0	     0	       100%
+src/masks.py	    17	        0	     0	       100%
+src/processing.py	8	        0	     0         100%
+src/widget.py	    24	        2	     0	       92%
+Total	            60	        2	     0	       97%
 
 Лицензия:
 
