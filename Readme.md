@@ -5,34 +5,45 @@
 ## Структура проекта
 
 ├── src
+│ ├── decorators.py
 │ ├── masks.py
 │ ├── processing.py
 │ ├── widget.py
 │ └── generators.py
 ├── tests
-├── test_masks.py
-├── test_processing.py
-├── test_widget.py
-└── test_generators.py
+│ ├── test_decorators.py
+│ ├── test_masks.py
+│ ├── test_processing.py
+│ ├── test_widget.py
+│ └── test_generators.py
+
 
 
 
 ### Модули
 
-- **masks.py**
-- **processing.py**
-- **widget.py**
-- **generators.py**
-- 
+- **decorators.py**: Модуль, содержащий декоратор `log` для логирования вызовов функций и результатов их работы.
+- **masks.py**: Модуль для работы с масками данных, таких как номера карт и счета.
+- **processing.py**: Модуль для обработки банковских операций.
+- **widget.py**: Основной модуль для работы с виджетом банковских операций.
+- **generators.py**: Модуль для генерации различных данных, используемых в виджете.
+
 ## Установка
 
 1. Клонируйте репозиторий:
 
-   git clone https://github.com/Mmclinks/homework_10_2.git
-2. Установите зависимости:
+git clone https://github.com/Mmclinks/homework_10_2.git
 
+   
+1. Установите зависимости:
 pip install
+или
 poetry install
+
+Использование
+Используйте виджет для выполнения различных банковских операций, 
+таких как обработка транзакций, маскирование данных и логирование операций. 
+Примеры использования находятся в соответствующих модулях.
 
 Тестирование
 Запустите тесты с помощью pytest:
@@ -43,11 +54,12 @@ pytest
 
 File	            statements	missing	 excluded  coverage
 src/__init__.py	    0	        0	     0	       100%
+src/decorators.py	26	        0	     0	       100%
 src/generators.py	11	        0	     0	       100%
 src/masks.py	    17	        0	     0	       100%
-src/processing.py	8	        0	     0         100%
+src/processing.py	8	        0	     0	       100%
 src/widget.py	    24	        2	     0	       92%
-Total	            60	        2	     0	       97%
+Total	            86	        2	     0	       98%
 
 Лицензия:
 

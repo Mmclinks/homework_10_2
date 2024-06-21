@@ -1,0 +1,12 @@
+divide called at 2024-06-21 22:06:16.458447
+divide ok
+divide called at 2024-06-21 22:06:16.479885
+divide error: ZeroDivisionError. Inputs: (1, 0), {}, division by zero
+divide called at 2024-06-21 22:06:16.483885
+divide ok
+divide called at 2024-06-21 22:06:16.484013
+divide error: ZeroDivisionError. Inputs: (1, 0), {}, division by zero
+divide ok
+divide error: division by zero. Inputs: (1, 0), {}
+divide ok
+divide error: division by zero. Inputs: (1, 0), {}
