@@ -1,39 +1,59 @@
-# Проект- Виджет банковских операций клиента
+# Виджет для банковских операций
 
-## Описание:
+Этот проект представляет собой виджет для выполнения различных банковских операций.
 
-Виджет,на Python, который показывает несколько последних успешных банковских операций клиента.
+## Структура проекта
 
-## Установка:
+.
+├── src
+│ ├── masks.py
+│ ├── processing.py
+│ ├── widget.py
+│ 
+├── tests
+├── test_masks.py
+├── test_processing.py
+├── test_widget.py
+
+
+
+### Модули
+
+- **masks.py**
+- **processing.py**
+- **widget.py**
+
+## Установка
 
 1. Клонируйте репозиторий:
-```
-git clone git@github.com:Mmclinks/feature-homework_10_1.git
-```
 
-1. Установите зависимости:
-```
+   git clone https://github.com/Mmclinks/homework_10_2.git
+2. Установите зависимости:
+
 pip install
 poetry install
-```
-## Использование:
 
-Пример использования функции sort_by_date:
+Тестирование
+Запустите тесты с помощью pytest:
 
-data = [
-    {"id": 1, "date": "2024-06-12T10:30:00.000"},
-    {"id": 2, "date": "2024-06-11T09:25:30.000"},
-    {"id": 3, "date": "2024-06-13T12:45:15.000"}
-]
+pytest
 
-1. Сортировка по возрастанию (по умолчанию)
-sorted_data_ascending = sort_by_date(data)
-print("По возрастанию:", sorted_data_ascending)
+Покрытие кода:
 
-2. Сортировка по убыванию
-sorted_data_descending = sort_by_date(data, ascending=False)
-print("По убыванию:", sorted_data_descending)
+src/__init__.py                0      0   100%
+src/masks.py                  17      0   100%
+src/processing.py              8      0   100%
+src/widget.py                 24      2    92%
+tests/__init__.py              0      0   100%
+tests/test_masks.py           17      2    88%
+tests/test_processing.py      16      0   100%
+tests/test_widget.py           8      0   100%
+----------------------------------------------
+TOTAL                         90      4    96%
 
-## Лицензия:
+Лицензия:
 
 Этот проект лицензирован по [лицензии MIT].
+
+Этот README.md файл предоставляет информацию о проекте, его 
+структуре, установке, использовании, тестировании и лицензии.
