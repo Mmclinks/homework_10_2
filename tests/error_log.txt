@@ -1,0 +1,2 @@
+divide error: division by zero. Inputs: (1, 0), {}
+divide error: division by zero. Inputs: (1, 0), {}
