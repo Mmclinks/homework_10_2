@@ -1,8 +1,8 @@
 import json
-from typing import Dict, List
+from typing import Any, Dict, List
 
 
-def read_transactions_from_json(json_file_path: str) -> List[Dict]:
+def read_transactions_from_json(json_file_path: str) -> List[Dict[str, Any]]:
     try:
         with open(json_file_path, 'r') as file:
             data = json.load(file)

@@ -36,7 +36,7 @@
 
 1. Клонируйте репозиторий:
 
-git clone https://github.com/Mmclinks/homework_10_2.git
+git clone https://github.com/Mmclinks/homework_12_1.git
 
    
 1. Установите зависимости:
@@ -57,17 +57,16 @@ pytest
 Покрытие кода:
 
 
-
-File	            statements	missing	 excluded  coverage
-src/__init__.py	    0	        0	     0    	   100%
-src/decorators.py	26	        0	     0	       100%
-src/external_api.py	18	        1	     0	       94%
-src/generators.py	11	        0	     0	       100%
-src/masks.py	    17	        0	     0	       100%
-src/processing.py	8	        0	     0	       100%
-src/utils.py	    11	        3	     0	       73%
-src/widget.py    	24	        2	     0	       92%
-Total	            115	        6	     0	       95%
+File	            statements	 missing   excluded	  coverage
+src/__init__.py	    0	         0	       0	      100%
+src/decorators.py	26	         0	       0	      100%
+src/external_api.py	18	         1	       0	      94%
+src/generators.py	11         	 0	       0	      100%
+src/masks.py	    17	         0	       0	      100%
+src/processing.py	8	         0	       0	      100%
+src/utils.py	    11	         1	       0	      91%
+src/widget.py	    24	         2	       0	      92%
+Total	            115	         4	       0	      97%
 
   
 
