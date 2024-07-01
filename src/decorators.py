@@ -1,9 +1,9 @@
 import functools
 import logging
-from typing import Callable, Optional
+from typing import Any, Callable, Dict, Optional, Tuple
 
 
-def log(filename: Optional[str] = None) -> Callable:
+def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Декоратор для логирования вызова функции и ее результата.
 
@@ -17,7 +17,7 @@ def log(filename: Optional[str] = None) -> Callable:
         Callable: Обернутая функция с логированием.
     """
 
-    def decorator_log(func: Callable) -> Callable:
+    def decorator_log(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         Декоратор для обертывания функции логированием.
 
@@ -29,7 +29,7 @@ def log(filename: Optional[str] = None) -> Callable:
         """
 
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def wrapper(*args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Any:
             """
             Обертка для выполнения логики логирования.
 
@@ -46,6 +46,8 @@ def log(filename: Optional[str] = None) -> Callable:
             logger = logging.getLogger(func.__name__)
             logger.setLevel(logging.INFO)
             formatter = logging.Formatter('%(message)s')
+
+            handler: logging.Handler
             if filename:
                 handler = logging.FileHandler(filename)
             else:
