@@ -6,33 +6,37 @@
 
 ├── src
 │ ├── decorators.py
+│ ├── external_api.py
+│ ├── generators.py
 │ ├── masks.py
 │ ├── processing.py
-│ ├── widget.py
-│ └── generators.py
+│ ├── utils.py
+│ └── widget.py
 ├── tests
 │ ├── test_decorators.py
+│ ├── test_external_api.py
+│ ├── test_generators.py
 │ ├── test_masks.py
 │ ├── test_processing.py
-│ ├── test_widget.py
-│ └── test_generators.py
-
+│ ├── test_utils.py
+│ └── test_widget.py
 
 
 
 ### Модули
 
 - **decorators.py**: Модуль, содержащий декоратор `log` для логирования вызовов функций и результатов их работы.
+- **external_api.py**: Модуль содержит функцию для конвертации валют.
+- **generators.py**: Модуль для генерации различных данных, используемых в виджете.
 - **masks.py**: Модуль для работы с масками данных, таких как номера карт и счета.
 - **processing.py**: Модуль для обработки банковских операций.
+- **utils.py**: модуль с функцией чтения данных из JSON-файла.
 - **widget.py**: Основной модуль для работы с виджетом банковских операций.
-- **generators.py**: Модуль для генерации различных данных, используемых в виджете.
-
 ## Установка
 
 1. Клонируйте репозиторий:
 
-git clone https://github.com/Mmclinks/homework_10_2.git
+git clone https://github.com/Mmclinks/homework_12_1.git
 
    
 1. Установите зависимости:
@@ -52,14 +56,19 @@ pytest
 
 Покрытие кода:
 
-File	            statements	missing	 excluded  coverage
-src/__init__.py	    0	        0	     0	       100%
-src/decorators.py	26	        0	     0	       100%
-src/generators.py	11	        0	     0	       100%
-src/masks.py	    17	        0	     0	       100%
-src/processing.py	8	        0	     0	       100%
-src/widget.py	    24	        2	     0	       92%
-Total	            86	        2	     0	       98%
+
+File	            statements	 missing   excluded	  coverage
+src/__init__.py	    0	         0	       0	      100%
+src/decorators.py	26	         0	       0	      100%
+src/external_api.py	18	         1	       0	      94%
+src/generators.py	11         	 0	       0	      100%
+src/masks.py	    17	         0	       0	      100%
+src/processing.py	8	         0	       0	      100%
+src/utils.py	    11	         1	       0	      91%
+src/widget.py	    24	         2	       0	      92%
+Total	            115	         4	       0	      97%
+
+  
 
 Лицензия:
 

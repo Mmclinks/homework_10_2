@@ -1,16 +1,21 @@
 from typing import Dict, Generator, Iterator, List
 
 
-def filter_by_currency(transactions: List[Dict], currency: str) -> Iterator[Dict]:
+def filter_by_currency(
+    transactions: List[Dict[str, Dict[str, Dict[str, str]]]],
+    currency: str
+) -> Iterator[Dict[str, Dict[str, Dict[str, str]]]]:
     """
-    Фильтрует транзакции по указанной валюте.
+    Filters transactions by the specified currency.
     """
     for transaction in transactions:
         if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
             yield transaction
 
 
-def transaction_descriptions(transactions: List[Dict]) -> Generator[str, None, None]:
+def transaction_descriptions(
+    transactions: List[Dict[str, str]]
+) -> Generator[str, None, None]:
     """
     Возвращает описания транзакций.
     """
@@ -18,7 +23,10 @@ def transaction_descriptions(transactions: List[Dict]) -> Generator[str, None, N
         yield transaction.get("description", "")
 
 
-def card_number_generator(start: int, end: int) -> Generator[str, None, None]:
+def card_number_generator(
+    start: int,
+    end: int
+) -> Generator[str, None, None]:
     """
     Генерирует номера карт в формате XXXX XXXX XXXX XXXX.
     """

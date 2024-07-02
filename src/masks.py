@@ -1,4 +1,4 @@
-def get_mask_card_number(card_number):
+def get_mask_card_number(card_number: str) -> str:
     """Убедимся, что номер карты представлен строкой"""
     card_numbers = str(card_number)
 
@@ -15,7 +15,7 @@ def get_mask_card_number(card_number):
     return mask_number
 
 
-def get_mask_account(account_num):
+def get_mask_account(account_num: str) -> str:
     """Преобразуем номер счета в строку, если он не является строкой"""
     account_number_str = str(account_num)
     """Получаем последние 4 цифры номера счета"""
