@@ -1,12 +1,12 @@
 import logging
 import os
 
-# Создаем и настраиваем логгер
+# Создаем и настраиваем logger
 log_file = os.path.join(os.path.dirname(__file__), '..', 'logs', 'masks.log')
 os.makedirs(os.path.dirname(log_file), exist_ok=True)
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s %(name)s %(levelname)s: %(message)s',
+    format='%(asc_time)s %(name)s %(level_name)s: %(message)s',
     handlers=[
         logging.FileHandler(log_file, mode='w'),
         logging.StreamHandler()
@@ -59,14 +59,3 @@ def get_mask_account(account_num: str) -> str:
 
     logger.debug("Маскированный номер счета: %s", mask_account_number)
     return mask_account_number
-
-
-# Пример вызова функций
-# if __name__ == "__main__":
-#     card_num = "1234567812345678"
-#     masked_card = get_mask_card_number(card_num)
-#     print(f"Маскированный номер карты: {masked_card}")
-#
-#     account_num = "12345678"
-#     masked_account = get_mask_account(account_num)
-#     print(f"Маскированный номер счета: {masked_account}")
