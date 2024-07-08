@@ -1,8 +1,13 @@
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any
 
+import unittest
+from unittest.mock import mock_open, patch
+import openpyxl
+from typing import List, Dict
 from src.utils import read_transactions_from_json
+from src.utils import read_transactions_from_csv, read_transactions_from_xlsx
 
 
 # Вспомогательная функция для создания временного JSON-файла
@@ -42,3 +47,40 @@ def test_read_transactions_from_json_empty_list():
     result = read_transactions_from_json(file_path)
     assert result == data
     os.remove(file_path)
+
+
+# Импортируем функции, которые необходимо протестировать
+
+
+class TestReadTransactions(unittest.TestCase):
+
+    @patch("builtins.open", new_callable=mock_open, read_data="id,name,amount\n1,Alice,100\n2,Bob,150")
+    @patch("os.path.dirname", return_value="")  # Подмена текущего каталога пустой строкой
+    def test_read_transactions_from_csv(self, mock_dirname, mock_file):
+        expected_result: List[Dict[str, str]] = [
+            {"id": "1", "name": "Alice", "amount": "100"},
+            {"id": "2", "name": "Bob", "amount": "150"},
+        ]
+
+        result = read_transactions_from_csv("transactions.csv")
+        self.assertEqual(result, expected_result)
+
+    @patch("openpyxl.load_workbook")
+    @patch("os.path.dirname", return_value="")  # Подмена текущего каталога пустой строкой
+    def test_read_transactions_from_xlsx(self, mock_dirname, mock_load_workbook):
+        # Создание фиктивной рабочей книги и листа
+        mock_workbook = openpyxl.Workbook()
+        mock_sheet = mock_workbook.active
+        mock_sheet.append(["id", "name", "amount"])
+        mock_sheet.append([1, "Alice", 100])
+        mock_sheet.append([2, "Bob", 150])
+
+        mock_load_workbook.return_value = mock_workbook
+
+        expected_result: List[Dict[str, str]] = [
+            {"id": 1, "name": "Alice", "amount": 100},
+            {"id": 2, "name": "Bob", "amount": 150},
+        ]
+
+        result = read_transactions_from_xlsx("transactions.xlsx")
+        self.assertEqual(result, expected_result)

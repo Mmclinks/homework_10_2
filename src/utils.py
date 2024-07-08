@@ -49,6 +49,18 @@ def read_transactions_from_json(json_file_path: str) -> List[Dict[str, Any]]:
 
 
 def read_transactions_from_csv(file_name: str) -> List[Dict[str, str]]:
+    """
+    Считывает транзакции из CSV-файла и возвращает их в виде списка словарей.
+
+    Каждый словарь представляет строку в CSV-файле, где ключами являются заголовки столбцов,
+    а значениями соответствующие значения ячеек.
+
+    Аргументы:
+        file_name (str): Имя CSV-файла для считывания.
+
+    Возвращает:
+        List[Dict[str, str]]: Список словарей, представляющих транзакции в CSV-файле.
+    """
     transactions: List[Dict[str, str]] = []
     current_dir = os.path.dirname(__file__)  # Получаем текущий каталог скрипта
     file_path = os.path.join(current_dir, file_name)  # Формируем полный путь к файлу
@@ -62,7 +74,19 @@ def read_transactions_from_csv(file_name: str) -> List[Dict[str, str]]:
 
 
 def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, str]]:
-    transactions = []
+    """
+    Считывает транзакции из XLSX-файла и возвращает их в виде списка словарей.
+
+    Каждый словарь представляет строку в XLSX-файле, где ключами являются заголовки столбцов,
+    а значениями соответствующие значения ячеек.
+
+    Аргументы:
+        xlsx_file (str): Имя XLSX-файла для считывания.
+
+    Возвращает:
+        List[Dict[str, str]]: Список словарей, представляющих транзакции в XLSX-файле.
+    """
+    transactions: List[Dict[str, str]] = []
     workbook = openpyxl.load_workbook(xlsx_file)
     sheet = workbook.active
     headers = [cell.value for cell in sheet[1]]
@@ -72,8 +96,8 @@ def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, str]]:
 
     return transactions
 
-# В других частях вашего проекта, где вам нужно считать данные из CSV
-# или XLSX файлов, вы можете импортировать эти функции следующим образом:
+# В других частях  проекта, где нужно считать данные из CSV
+# или XLSX файлов, импортировать эти функции следующим образом:
 #
 # from utils import read_transactions_from_csv, read_transactions_from_xlsx
 #
