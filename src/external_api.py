@@ -2,6 +2,9 @@ import os
 from typing import Any, Dict
 
 import requests
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def convert_amount_to_rubles(transaction: Dict[str, Any]) -> float:
@@ -12,7 +15,7 @@ def convert_amount_to_rubles(transaction: Dict[str, Any]) -> float:
         return amount
 
     if currency in ['USD', 'EUR']:
-        api_key = os.getenv('EXCHANGE_API_KEY')
+        api_key = os.getenv('API_KEY')
         response = requests.get(
             'https://api.apilayer.com/exchangerates_data/convert',
             headers={'apikey': api_key},

@@ -1,48 +1,13 @@
-# import unittest
-# from unittest.mock import mock_open, patch
-#
-# from src.utils import read_transactions_from_json
-#
-#
-# class TestUtils(unittest.TestCase):
-#
-#     @patch('builtins.open', new_callable=mock_open, read_data='[{"amount": 100, "currency": "USD"}]')
-#     def test_read_transactions_from_json_valid_json(self, mock_builtin_open):
-#         transactions = read_transactions_from_json('dummy.json')
-#         self.assertEqual(len(transactions), 1)
-#         self.assertEqual(transactions[0]['amount'], 100)
-#         self.assertEqual(transactions[0]['currency'], 'USD')
-#
-#         mock_builtin_open.assert_called_once_with('dummy.json', 'r')  # Пример использования мока
-#
-#     @patch('builtins.open', new_callable=mock_open, read_data='[]')
-#     def test_read_transactions_from_json_empty_json(self, mock_builtin_open):
-#         transactions = read_transactions_from_json('dummy.json')
-#         self.assertEqual(transactions, [])
-#
-#         mock_builtin_open.assert_called_once_with('dummy.json', 'r')  # Пример использования мока
-#
-#     @patch('builtins.open', side_effect=FileNotFoundError)
-#     def test_read_transactions_from_json_file_not_found(self, mock_builtin_open):
-#         transactions = read_transactions_from_json('non_existing.json')
-#         self.assertEqual(transactions, [])
-#
-#         mock_builtin_open.assert_called_once_with('non_existing.json', 'r')  # Пример использования мока
-#
-#     @patch('builtins.open', new_callable=mock_open, read_data='not_a_json')
-#     def test_read_transactions_from_json_invalid_json(self, mock_builtin_open):
-#         transactions = read_transactions_from_json('dummy.json')
-#         self.assertEqual(transactions, [])
-#
-#         mock_builtin_open.assert_called_once_with('dummy.json', 'r')  # Пример использования мока
-#
-# if __name__ == '__main__':
-#     unittest.main()
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any
 
+import unittest
+from unittest.mock import mock_open, patch
+import openpyxl
+from typing import List, Dict
 from src.utils import read_transactions_from_json
+from src.utils import read_transactions_from_csv, read_transactions_from_xlsx
 
 
 # Вспомогательная функция для создания временного JSON-файла
@@ -82,3 +47,40 @@ def test_read_transactions_from_json_empty_list():
     result = read_transactions_from_json(file_path)
     assert result == data
     os.remove(file_path)
+
+
+# Импортируем функции, которые необходимо протестировать
+
+
+class TestReadTransactions(unittest.TestCase):
+
+    @patch("builtins.open", new_callable=mock_open, read_data="id,name,amount\n1,Alice,100\n2,Bob,150")
+    @patch("os.path.dirname", return_value="")  # Подмена текущего каталога пустой строкой
+    def test_read_transactions_from_csv(self, mock_dirname, mock_file):
+        expected_result: List[Dict[str, str]] = [
+            {"id": "1", "name": "Alice", "amount": "100"},
+            {"id": "2", "name": "Bob", "amount": "150"},
+        ]
+
+        result = read_transactions_from_csv("transactions.csv")
+        self.assertEqual(result, expected_result)
+
+    @patch("openpyxl.load_workbook")
+    @patch("os.path.dirname", return_value="")  # Подмена текущего каталога пустой строкой
+    def test_read_transactions_from_xlsx(self, mock_dirname, mock_load_workbook):
+        # Создание фиктивной рабочей книги и листа
+        mock_workbook = openpyxl.Workbook()
+        mock_sheet = mock_workbook.active
+        mock_sheet.append(["id", "name", "amount"])
+        mock_sheet.append([1, "Alice", 100])
+        mock_sheet.append([2, "Bob", 150])
+
+        mock_load_workbook.return_value = mock_workbook
+
+        expected_result: List[Dict[str, str]] = [
+            {"id": 1, "name": "Alice", "amount": 100},
+            {"id": 2, "name": "Bob", "amount": 150},
+        ]
+
+        result = read_transactions_from_xlsx("transactions.xlsx")
+        self.assertEqual(result, expected_result)
