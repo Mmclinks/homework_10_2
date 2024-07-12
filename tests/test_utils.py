@@ -1,13 +1,12 @@
 import json
 import os
-from typing import Any
-
 import unittest
+from typing import Any, Dict, List
 from unittest.mock import mock_open, patch
+
 import openpyxl
-from typing import List, Dict
-from src.utils import read_transactions_from_json
-from src.utils import read_transactions_from_csv, read_transactions_from_xlsx
+
+from src.utils import read_transactions_from_csv, read_transactions_from_json, read_transactions_from_xlsx
 
 
 # Вспомогательная функция для создания временного JSON-файла

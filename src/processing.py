@@ -18,6 +18,7 @@ def filter_by_state(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List
 
 from datetime import datetime
 
+
 def sort_by_date(data, ascending=True):
     date_format = '%Y-%m-%dT%H:%M:%S%z'  # Изменен формат для работы с ISO 8601
 

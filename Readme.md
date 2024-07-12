@@ -27,7 +27,6 @@
 │ ├── decorators.py
 │ ├── external_api.py
 │ ├── generators.py
-│ ├── main.py
 │ ├── masks.py
 │ ├── processing.py
 │ ├── search.py
@@ -42,7 +41,7 @@
 │ ├── test_search.py
 │ ├── test_utils.py
 │ └── test_widget.py
-
+├── main.py
 
 
 ### Модули
@@ -80,6 +79,8 @@ poetry install
 в папке **logs** проекта, и также выводятся в консоль для оперативного мониторинга.
 ## Новый функционал
 
+- Добавлен главный модуль main.py
+- 
 - Добавлены функции для чтения данных из файлов `transactions.csv` и `transactions_excel.xlsx`
 
 - Тестирование
@@ -91,17 +92,17 @@ pytest
 Покрытие кода:
 
 
-File	            statements	missing	 excluded  coverage
-src/__init__.py	    0	        0	     0	       100%
-src/decorators.py	26	        0	     0	       100%
-src/external_api.py	20	        1	     0	       95%
-src/generators.py	11	        0	     0	       100%
-src/masks.py	    23	        0	     0    	   100%
-src/processing.py	8	        0	     0	       100%
-src/utils.py	    43	        3	     0	       93%
-src/widget.py	    24	        2	     0	       92%
-Total	            155	        6	     0	       96%
-
+File	             statements	missing	excluded coverage
+src/__init__.py	     0	        0	    0	     100%
+src/decorators.py	 26	        0	    0	     100%
+src/external_api.py	 20	        1	    0	     95%
+src/generators.py	 11	        0	    0	     100%
+src/masks.py	     23	        0	    0	     100%
+src/processing.py	 9	        0	    0	     100%
+src/search.py	     5	        0	    0	     100%
+src/utils.py	     76	        24	    0	     68%
+src/widget.py	     24	        2	    0	     92%
+Total	             194	    27	    0	     86%
 
 Лицензия:
 

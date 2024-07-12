@@ -1,8 +1,9 @@
 import csv
 import json
 import logging
-import re
 import os
+import re
+from collections import Counter
 from typing import Any, Dict, List
 
 import openpyxl
@@ -130,26 +131,9 @@ def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, Any]]:
     return transactions
 
 
-def count_operations_by_category_regex(transactions: List[Dict[str, str]], categories: List[str]) -> Dict[str, int]:
-    """
-    Функция подсчитывает количество операций в каждой категории на основе описания
-    транзакций с использованием регулярных выражений.
-
-    Args:
-    - transactions (List[Dict[str, str]]): Список словарей с данными о банковских операциях.
-      Каждый словарь должен содержать поле 'description', описывающее операцию.
-    - categories (List[str]): Список категорий операций.
-
-    Returns:
-    - Dict[str, int]: Словарь, где ключи — названия категорий, а значения — количество операций в каждой категории.
-    """
-    category_counts = {category: 0 for category in categories}
-
-    for transaction in transactions:
-        description = transaction.get('description', '')
-
-        for category in categories:
-            if re.search(r'\b' + re.escape(category) + r'\b', description, re.IGNORECASE):
-                category_counts[category] += 1
-
-    return category_counts
+def count_operations_by_category(operations, categories):
+    category_counts = Counter()
+    for operation in operations:
+        if operation['category'] in categories:
+            category_counts[operation['category']] += 1
+    return dict(category_counts)
