@@ -1,6 +1,7 @@
 import csv
 import json
 import logging
+import re
 import os
 from typing import Any, Dict, List
 
@@ -80,20 +81,20 @@ def read_transactions_from_csv(file_name: str) -> List[Dict[str, str]]:
     return transactions
 
 
-def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, str]]:
+def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, Any]]:
     """
     Считывает транзакции из XLSX-файла и возвращает их в виде списка словарей.
 
     Каждый словарь представляет строку в XLSX-файле, где ключами являются заголовки столбцов,
     а значениями соответствующие значения ячеек.
 
-    Аргументы:
+    Args:
         xlsx_file (str): Имя XLSX-файла для считывания.
 
-    Возвращает:
-        List[Dict[str, str]]: Список словарей, представляющих транзакции в XLSX-файле.
+    Returns:
+        List[Dict[str, Any]]: Список словарей, представляющих транзакции в XLSX-файле.
     """
-    transactions: List[Dict[str, str]] = []
+    transactions: List[Dict[str, Any]] = []
 
     logger.debug("Попытка чтения XLSX-файла: %s", xlsx_file)
     try:
@@ -102,7 +103,24 @@ def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, str]]:
         headers = [cell.value for cell in sheet[1]]
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
-            transactions.append(dict(zip(headers, row)))
+            transaction = dict(zip(headers, row))
+
+            # Преобразование даты в нужный формат
+            if 'operationDate' in transaction:
+                try:
+                    transaction['operationDate'] = transaction['operationDate'].strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+                except AttributeError:
+                    pass  # Если дата уже строка в нужном формате
+
+            # Преобразование суммы в нужный формат
+            if 'operationAmount' in transaction:
+                try:
+                    transaction['operationAmount'] = float(transaction['operationAmount'])
+                except ValueError:
+                    pass  # Если не удалось преобразовать в число
+
+            transactions.append(transaction)
+
         logger.debug("Успешно прочитан XLSX-файл: %s", xlsx_file)
     except FileNotFoundError:
         logger.error("Файл не найден: %s", xlsx_file)
@@ -112,25 +130,10 @@ def read_transactions_from_xlsx(xlsx_file: str) -> List[Dict[str, str]]:
     return transactions
 
 
-# В других частях проекта, где нужно считать данные из CSV
-# или XLSX файлов, импортировать эти функции следующим образом:
-#
-# from utils import read_transactions_from_csv, read_transactions_from_xlsx
-#
-# # Пример использования для CSV
-# csv_file = '/home/alex/Загрузки/transactions.csv'
-# csv_transactions = read_transactions_from_csv(csv_file)
-# print(csv_transactions)
-#
-# # Пример использования для XLSX
-# xlsx_file = '/home/alex/Загрузки/transactions_excel.xlsx'
-# xlsx_transactions = read_transactions_from_xlsx(xlsx_file)
-# print(xlsx_transactions)
-
-
-def count_operations_by_category(transactions: List[Dict[str, str]], categories: List[str]) -> Dict[str, int]:
+def count_operations_by_category_regex(transactions: List[Dict[str, str]], categories: List[str]) -> Dict[str, int]:
     """
-    Функция подсчитывает количество операций в каждой категории на основе описания транзакций.
+    Функция подсчитывает количество операций в каждой категории на основе описания
+    транзакций с использованием регулярных выражений.
 
     Args:
     - transactions (List[Dict[str, str]]): Список словарей с данными о банковских операциях.
@@ -146,8 +149,7 @@ def count_operations_by_category(transactions: List[Dict[str, str]], categories:
         description = transaction.get('description', '')
 
         for category in categories:
-            if category.lower() in description.lower():
+            if re.search(r'\b' + re.escape(category) + r'\b', description, re.IGNORECASE):
                 category_counts[category] += 1
-                break
 
     return category_counts

@@ -16,17 +16,10 @@ def filter_by_state(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List
     return [item for item in data if item.get('state') == state]
 
 
-def sort_by_date(data: List[Dict[str, Any]], ascending: bool = True) -> List[Dict[str, Any]]:
-    """
-    Сортирует список словарей по ключу 'date'.
+from datetime import datetime
 
-    Args:
-        data (List[Dict[str, Any]]): Список транзакций в виде словарей.
-        ascending (bool): Флаг сортировки по возрастанию. По умолчанию True.
+def sort_by_date(data, ascending=True):
+    date_format = '%Y-%m-%dT%H:%M:%S%z'  # Изменен формат для работы с ISO 8601
 
-    Returns:
-        List[Dict[str, Any]]: Отсортированный список транзакций.
-    """
-    date_format = '%Y-%m-%dT%H:%M:%S.%f'
-    sorted_data = sorted(data, key=lambda item: datetime.strptime(item['date'], date_format), reverse=not ascending)
+    sorted_data = sorted(data, key=lambda item: datetime.fromisoformat(item['date']), reverse=not ascending)
     return sorted_data
