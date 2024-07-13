@@ -5,7 +5,7 @@ import os
 log_file = os.path.join(os.path.dirname(__file__), '..', 'logs', 'masks.log')
 os.makedirs(os.path.dirname(log_file), exist_ok=True)
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(asc_time)s %(name)s %(level_name)s: %(message)s',
     handlers=[
         logging.FileHandler(log_file, mode='w'),
